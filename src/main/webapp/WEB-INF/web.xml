@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+  <display-name>WebProject_KYJ</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  <context-param>
+  <param-name>OracleDriver</param-name>
+  <param-value>oracle.jdbc.OracleDriver</param-value>
+</context-param>
+<context-param>
+  <param-name>OracleURL</param-name>
+  <param-value>jdbc:oracle:thin:@localhost:1522:xe</param-value>
+</context-param>
+<context-param>
+  <param-name>OracleId</param-name>
+  <param-value>kyj</param-value>
+</context-param>
+<context-param>
+  <param-name>OraclePwd</param-name>
+  <param-value>1234</param-value>
+</context-param>
+  
+  <!-- 1. 한 페이지에 출력할 게시물의 갯수 설정 -->
+  <context-param>
+	<param-name>POSTS_PER_PAGE</param-name>
+	<param-value>2</param-value>
+</context-param>
+<!-- 2. 한 블럭당 출력할 페이지번호의 갯수 설정 -->
+<context-param>
+	<param-name>PAGES_PER_BLOCK</param-name>
+	<param-value>2</param-value>
+</context-param>
+  
+  <servlet>
+	<servlet-name>board-list</servlet-name>
+	<servlet-class>board.ListController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>board-list</servlet-name>
+	<url-pattern>/vsCode/board-list.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>signup</servlet-name>
+	<servlet-class>member.SignupController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>signup</servlet-name>
+	<url-pattern>/vsCode/signup.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>board-write</servlet-name>
+	<servlet-class>board.WriteController</servlet-class>
+	<!-- 파일 업로드시 제한 용량 설정 -->
+	<multipart-config>
+		<max-file-size>10485760</max-file-size> <!-- 1MB -->
+		<max-request-size>10485760</max-request-size> <!-- 10MB -->
+	</multipart-config>
+</servlet>
+<servlet-mapping>
+	<servlet-name>board-write</servlet-name>
+	<url-pattern>/vsCode/board-write.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>board-edit</servlet-name>
+	<servlet-class>board.EditController</servlet-class>
+	<!-- 파일 업로드시 제한 용량 설정 -->
+	<multipart-config>
+		<max-file-size>10485760</max-file-size> <!-- 1MB -->
+		<max-request-size>10485760</max-request-size> <!-- 10MB -->
+	</multipart-config>
+</servlet>
+<servlet-mapping>
+	<servlet-name>board-edit</servlet-name>
+	<url-pattern>/vsCode/board-edit.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>qna-list</servlet-name>
+	<servlet-class>qnaboard.QnaListController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>qna-list</servlet-name>
+	<url-pattern>/vsCode/qna-list.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>qna-write</servlet-name>
+	<servlet-class>qnaboard.QnaWriteController</servlet-class>
+	<!-- 파일 업로드시 제한 용량 설정 -->
+	<multipart-config>
+		<max-file-size>10485760</max-file-size> <!-- 1MB -->
+		<max-request-size>10485760</max-request-size> <!-- 10MB -->
+	</multipart-config>
+</servlet>
+<servlet-mapping>
+	<servlet-name>qna-write</servlet-name>
+	<url-pattern>/vsCode/qna-write.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>qna-edit</servlet-name>
+	<servlet-class>qnaboard.QnaEditController</servlet-class>
+	<!-- 파일 업로드시 제한 용량 설정 -->
+	<multipart-config>
+		<max-file-size>10485760</max-file-size> <!-- 1MB -->
+		<max-request-size>10485760</max-request-size> <!-- 10MB -->
+	</multipart-config>
+</servlet>
+<servlet-mapping>
+	<servlet-name>qna-edit</servlet-name>
+	<url-pattern>/vsCode/qna-edit.do</url-pattern>
+</servlet-mapping>
+
+</web-app>
