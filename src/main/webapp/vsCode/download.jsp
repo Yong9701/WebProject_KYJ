@@ -127,22 +127,22 @@
                </ul>
              </li>
              <li>
-               <a class="active" href="board-list.do">명랑소식</a>
-               <ul class="depth2">
-                 <li>
-                   <a class="active" href="board-list.do">언론보도</a>
-                 </li>
-                 <li>
-                   <a href="#">홍보동영상</a>
-                 </li>
-                 <li>
-                   <a href="qna-list.jsp">고객문의</a>
-                 </li>
-                 <li>
+              <a href="board-list.do">명랑소식</a>
+              <ul class="depth2">
+                <li>
+                  <a href="../vsCode/board-list.do">언론보도</a>
+                </li>
+                <li>
+                  <a href="#">홍보동영상</a>
+                </li>
+                <li>
+                  <a href="../vsCode/qna-list.do">고객문의</a>
+                </li>
+                <li>
                   <a href="download.jsp">자료실</a>
                  </li>
-               </ul>
-             </li>
+              </ul>
+            </li>
            </ul>
            <span class="bar"></span>
          </nav>

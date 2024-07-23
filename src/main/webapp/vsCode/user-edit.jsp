@@ -273,6 +273,9 @@
           <div class="signup_area">
           <script type="text/javascript">
 		    function validateForm(form) {  // 필수 항목 입력 확인
+		    	var password = document.signupFrm.pass.value;
+		        var checkPassword = document.signupFrm.checkPass.value;
+		        
 		        if (form.pass.value == "") {
 		            alert("변경할 비밀번호를 입력하세요.");
 		            form.pass.focus();
@@ -281,6 +284,11 @@
 		        if (form.checkPass.value == "") {
 		            alert("비밀번호 확인을 진행하세요.");
 		            form.checkPass.focus();
+		            return false;
+		        }
+		        if (password != checkPassword) {
+		            alert("비밀번호가 일치하지않습니다.");
+		            form.pass.focus();
 		            return false;
 		        }
 		        if (form.name.value == "") {
@@ -319,10 +327,10 @@
 	              <input type="text" name="id" value="${ id }"/>
 	            </div>
 	            <div class="signup_row">
-	              <input type="text" name="pass" placeholder="비밀번호변경" oninput="checkPasswordMatch()">
+	              <input type="password" name="pass" placeholder="비밀번호변경" oninput="checkPasswordMatch()">
 	            </div>
 	            <div class="signup_row">
-	              <input type="text" name="checkPass" placeholder="비밀번호 확인" oninput="checkPasswordMatch()">
+	              <input type="password" name="checkPass" placeholder="비밀번호 확인" oninput="checkPasswordMatch()">
 	              <span id="password_match_message"></span>
 	            </div>
 	            <div class="signup_row">

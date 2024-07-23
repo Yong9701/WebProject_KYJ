@@ -266,6 +266,19 @@
           <div class="signup_area">
           <script type="text/javascript">
 		    function validateForm(form) {  // 필수 항목 입력 확인
+		    	var id = document.signupFrm.id.value;
+		        var messageElement = document.getElementById('useable_id_message');
+				var pattern = /^[a-z0-9]{6,12}$/;
+				var password = document.signupFrm.pass.value;
+		        var checkPassword = document.signupFrm.checkPass.value;
+		        
+		        if (pattern.test(id)) {
+		            messageElement.innerHTML = '조건을 만족합니다.';
+		        } else {
+		        	alert()
+		            messageElement.innerHTML = '소문자, 숫자 조합 6~12글자이내로 입력하세요.';
+		            return false;
+		        }
 		        if (form.id.value == "") {
 		            alert("아이디를 입력하세요.");
 		            form.name.focus();
@@ -273,6 +286,11 @@
 		        }
 		        if (form.pass.value == "") {
 		            alert("비밀번호를 입력하세요.");
+		            form.pass.focus();
+		            return false;
+		        }
+		        if (password != checkPassword) {
+		            alert("비밀번호가 일치하지않습니다.");
 		            form.pass.focus();
 		            return false;
 		        }
@@ -355,10 +373,10 @@
 	               type="button" onclick="checkId()">중복 확인</button>
 	            </div>
 	            <div class="signup_row">
-	              <input type="text" name="pass" placeholder="비밀번호" oninput="checkPasswordMatch()">
+	              <input type="password" name="pass" placeholder="비밀번호" oninput="checkPasswordMatch()">
 	            </div>
 	            <div class="signup_row">
-	              <input type="text" name="checkPass" placeholder="비밀번호 확인" oninput="checkPasswordMatch()">
+	              <input type="password" name="checkPass" placeholder="비밀번호 확인" oninput="checkPasswordMatch()">
 	              <span id="password_match_message"></span>
 	            </div>
 	            <div class="signup_row">

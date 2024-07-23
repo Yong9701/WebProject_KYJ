@@ -1,3 +1,5 @@
+<%@page import="member.MemberDTO"%>
+<%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
@@ -14,7 +16,7 @@
   <meta property="og:title" content="명랑핫도그">
   <meta property="og:description" content="늘 건강하고, 늘 정직하게, 늘 한결같이, 청년들의 투명함과 정직함으로 만든 핫도그, 명랑핫도그">
   <meta property="og:image" content="http://myungranghotdog.com/images/site/kor/layout/logo.png">
-  <title>언론보도 | 명랑핫도그</title>
+  <title>회원정보수정 | 명랑핫도그</title>
   <link rel="icon" href="images/common/favicon.ico">
   <link rel="apple-touch-icon-precomposed" href="images/common/favicon.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +27,7 @@
   <link rel="stylesheet" href="css/swiper-bundle.min.css">
   <link rel="stylesheet" href="css/common.css?v=<?php echo time(); ?>">
   <link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="css/sub.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="./css/sub.css?v=<?php echo time(); ?>">
   <script src="js/jquery-3.7.1.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/swiper-bundle.min.js"></script>
@@ -36,7 +38,7 @@
     <a href="#container">본문바로가기</a>
   </div>
   <div id="wrap">
-    <header id="header" class="sub_header">
+    <header id="header">
       <div class="header_top">
         <h1 class="logo"><a href="index.jsp"><span class="blind">명랑쌀핫도그</span></a></h1>
         <div class="inner">
@@ -45,7 +47,7 @@
              <a href="#">HOME</a>
              <a href="#">SITEMAP</a>
              <a href="#">점주공간</a>
-             <% if (session.getAttribute("UserId") == null) { %>
+            <% if (session.getAttribute("UserId") == null) { %>
 	            <a href="../vsCode/login.jsp">로그인</a>
 	         <% } else { %>
 	            <a href="../vsCode/Logout.jsp">로그아웃</a>
@@ -128,22 +130,22 @@
                </ul>
              </li>
              <li>
-              <a href="board-list.do">명랑소식</a>
-              <ul class="depth2">
-                <li>
-                  <a href="../vsCode/board-list.do">언론보도</a>
-                </li>
-                <li>
-                  <a href="#">홍보동영상</a>
-                </li>
-                <li>
-                  <a href="../vsCode/qna-list.do">고객문의</a>
-                </li>
-                <li>
+               <a href="board-list.do">명랑소식</a>
+               <ul class="depth2">
+                 <li>
+                   <a href="board-list.do">언론보도</a>
+                 </li>
+                 <li>
+                   <a href="#">홍보동영상</a>
+                 </li>
+                 <li>
+                   <a href="qna-list.jsp">고객문의</a>
+                 </li>
+                 <li>
                   <a href="download.jsp">자료실</a>
                  </li>
-              </ul>
-            </li>
+               </ul>
+             </li>
            </ul>
            <span class="bar"></span>
          </nav>
@@ -264,114 +266,39 @@
        </ul>
      </aside>
     </header>
-   <main id="container" class="board_page sub_container">
-    <div class="sub_top">
+   <main id="container" class="signup_page sub_container">
+     <div class="contents">
       <div class="inner">
-        <h2>언론보도</h2>
-        <div class="sub_home">
-          <a class="home_btn" href="#"><span class="blind">HOME</span></a>
-          <div class="s_wrap">
-            <button class="sub_gnb menu_btn" type="button">명랑소식</button>
-            <ul class="s_menu">
-              <li><a href="#">명랑시대</a></li>
-              <li><a href="#">메뉴</a></li>
-              <li><a href="#">이벤트</a></li>
-              <li><a href="#">창업안내</a></li>
-              <li><a href="#">매장안내</a></li>
-              <li><a href="board-list.do">명랑소식</a></li>
-              <li><a href="#">이용안내</a></li>
-            </ul>
+          <h2 class="sign_title">비밀번호찾기</h2>
+          <div class="signup_area">
+          <script type="text/javascript">
+		    function validateForm(form) {  // 필수 항목 입력 확인
+		        if (form.id.value == "") {
+		            alert("아이디를 입력하세요.");
+		            form.pass.focus();
+		            return false;
+		        }
+		        if (form.email.value == "") {
+		            alert("이메일을 입력하세요.");
+		            form.email.focus();
+		            return false;
+		        }
+		    }
+		    
+		 </script>
+          	<form name="FindpwFrm" method="post" action="../vsCode/Findpw.do"
+          		onsubmit="return validateForm(this);">
+	            <div class="signup_row">
+	              <input type="text" name="id" placeholder="아이디를 입력하세요."/>
+	            </div>
+	            <div class="signup_row">
+	              <input type="text" name="email" placeholder="이메일 주소를 입력하세요."/>
+	            </div>
+	          <button style="width:450px; border:none;" type="submit" class="sign_btn">임시비밀번호 발송하기</button>
+	        </form>
           </div>
-          <div class="s_wrap">
-            <button class="menu_btn" type="button">언론보도</button>
-            <ul class="s_menu">
-              <li><a href="board-list.do">언론보도</a></li>
-              <li><a href="#">홍보동영상</a></li>
-              <li><a href="qna-list.jsp">고객문의</a></li>
-              <li><a href="download.jsp">자료실</a></li>
-            </ul>
-          </div>
-          <div class="sns_wrap">
-            <a class="facebook" href="#"></a>
-            <a class="twitter" href="#"></a>
-            <a class="print" href="#"></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="contents">
-      <div class="inner">
-        <div class="board_option">
-          <div class="cnt_wrap">
-            <strong>총 게시물</strong>
-            <em>118</em>
-            <p>1</p>
-            <span>/12</span>
-          </div>
-          <form method="get">
-            <fieldset>
-              <legend>게시물 검색</legend>
-              <div class="board_search">
-                <div class="select_wrap">
-                  <select name="searchField">
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                    <option value="name">작성자</option>
-                  </select>
-                </div>
-                <div class="search_wrap">
-                  <input class="search" type="search" name="searchWord" />
-                  <input type="submit" class="search_btn" value="검색" />
-                </div>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-        <div class="board_list">
-          <table>
-            <caption>언론보도 테이블: 번호, 제목, 작성자, 등록일, 조회</caption>
-              <thead>
-                <tr>
-                  <th class="col1">No</th>
-                  <th class="col2">제목</th>
-                  <th class="col3">작성자</th>
-                  <th class="col4">등록일</th>
-                  <th class="col5">조회</th>
-                </tr>
-              </thead>
-              <tbody>
-	              <c:choose>
-	              	<c:when test="${ empty boardLists }">
-	              		<tr>
-	              			<td colspan="5" align="center">
-	              				등록된 게시물이 없습니다
-	              			</td>
-	              		</tr>
-	              	</c:when>
-	              	<c:otherwise>
-	              		<c:forEach items="${ boardLists }" var="row" varStatus="loop">
-	              		<tr>
-	              			<td>${ map.totalCount - (((map.pageNum - 1) * map.pageSize) + loop.index)}</td>
-	              			<td><a href="../vsCode/board-view.do?idx=${ row.idx }">
-	              				${ row.title }</a></td>
-	              			<td>${ row.name }</td>
-	              			<td>${ row.postdate }</td>
-	              			<td>${ row.visitcount }</td>
-	              		</tr>
-	              		</c:forEach>
-	              	</c:otherwise>
-	              </c:choose>
-              </tbody>
-          </table>
-          <div class="board_pagination">
-            ${ map.pagingImg }
-          </div>
-          <% if (session.getAttribute("UserId") != null) { %>
-	      	<a class="write_btn list_btn" href="board-write.do?id=${ UserId }">작성</a>
-	         <% } %>
-        </div>
-      </div>
-    </div>
+       </div>
+     </div>
    </main>
    <footer id="footer" class="sub_footer">
     <div class="inner">

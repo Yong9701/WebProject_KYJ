@@ -1,3 +1,4 @@
+<%@page import="utils.CookieManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -127,22 +128,22 @@
                </ul>
              </li>
              <li>
-               <a href="board-list.do">명랑소식</a>
-               <ul class="depth2">
-                 <li>
-                   <a href="board-list.do">언론보도</a>
-                 </li>
-                 <li>
-                   <a href="#">홍보동영상</a>
-                 </li>
-                 <li>
-                   <a href="qna-list.jsp">고객문의</a>
-                 </li>
-                 <li>
+              <a href="board-list.do">명랑소식</a>
+              <ul class="depth2">
+                <li>
+                  <a href="../vsCode/board-list.do">언론보도</a>
+                </li>
+                <li>
+                  <a href="#">홍보동영상</a>
+                </li>
+                <li>
+                  <a href="../vsCode/qna-list.do">고객문의</a>
+                </li>
+                <li>
                   <a href="download.jsp">자료실</a>
                  </li>
-               </ul>
-             </li>
+              </ul>
+            </li>
            </ul>
            <span class="bar"></span>
          </nav>
@@ -268,7 +269,16 @@
       <div class="inner">
         <div class="login_area">
           <h2>ID 로그인</h2>
-          
+          <%
+          String loginId = CookieManager.readCookie(request, "loginId");
+
+	       // 이미 생성된 쿠키가 있다면 체크박스가 체크된 상태로 페이지를 로드한다.
+	       String cookieCheck ="";
+	       if(!loginId.equals("")) {
+	       	// 여기에서 부여된 값은 아래 checkbox의 속성값으로 사용된다.
+	       	cookieCheck = "checked";
+	       }
+          %>
          <span style="color: red; font-size: 15px; display:flex; justify-content:center; padding-top:10px">
     	<!--  if문 대신 삼항연산자를 통해 분기 -->
         <%= request.getAttribute("LoginErrMsg") == null ?
@@ -299,15 +309,15 @@
             <fieldset>
               <legend>로그인</legend>
               <div class="row row1">
-                <input type="text" placeholder="아이디" name="id">
+                <input type="text" placeholder="아이디" name="id" value="<%= loginId %>" >
               </div>
               <div class="row row2">
-                <input type="text" placeholder="비밀번호" name="pw">
+                <input type="password" placeholder="비밀번호" name="pw">
               </div>
               <div class="row row3">
                 <div class="checkbox_wrap">
-                  <input id="check1" type="checkbox">
-                  <label for="check1">로그인 상태 유지</label>
+                  <input id="check1" type="checkbox" name="save_check" value="Y" <%= cookieCheck %>>
+                  <label for="check1">아이디 저장</label>
                 </div>
               </div>
             </fieldset>
@@ -315,7 +325,7 @@
           </form>
 	        <ul class="link_wrap">
 	          <li><a href="#">아이디 찾기</a></li>
-	          <li><a href="#">비밀번호 찾기</a></li>
+	          <li><a href="FindPassword.jsp">비밀번호 찾기</a></li>
 	          <li><a href="signup.jsp">회원가입</a></li>
 	        </ul>
         </div>

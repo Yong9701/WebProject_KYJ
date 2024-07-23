@@ -35,8 +35,6 @@ public class ViewController extends HttpServlet {
 		BoardDAO dao = new BoardDAO();
 		// 파라미터로 전달된 일련번호 받기
 		String idx = req.getParameter("idx");
-		// 조회수 증가하기
-		dao.updateVisitCount(idx);
 		// 게시물 인출
 		BoardDTO dto = dao.selectView(idx);
 		dao.close();

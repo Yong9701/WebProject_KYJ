@@ -1,6 +1,9 @@
 package board;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -82,6 +85,7 @@ public class BoardDAO extends DBConnPool {
                 dto.setOfile(rs.getString("ofile"));
                 dto.setSfile(rs.getString("sfile"));
                 dto.setVisitcount(rs.getInt("visitcount")); // 숫자이므로 getInt() 사용
+                dto.setLikeboard(rs.getInt("likeboard"));
 
                 // List에 추가한다.
                 board.add(dto);
@@ -140,6 +144,7 @@ public class BoardDAO extends DBConnPool {
                 dto.setOfile(rs.getString(6));
                 dto.setSfile(rs.getString(7));
                 dto.setVisitcount(rs.getInt(8)); // 숫자이므로 getInt() 사용
+                dto.setLikeboard(rs.getInt(9));
             }
         } catch (Exception e) {
             System.out.println("게시물 상세보기 중 예외 발생");
@@ -201,5 +206,20 @@ public class BoardDAO extends DBConnPool {
     		e.printStackTrace();
     	}
 		return result;
+    }
+    
+    public boolean updateLikeCount(String idx) {
+        PreparedStatement pstmt = null;
+        boolean success = false;
+        try {
+            String sql = "UPDATE board SET likeboard = likeboard + 1 WHERE idx = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, idx);
+            int rows = pstmt.executeUpdate();
+            success = (rows > 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return success;
     }
 }

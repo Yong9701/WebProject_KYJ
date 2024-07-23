@@ -1,7 +1,57 @@
+<%@page import="board.BoardDTO"%>
+<%@page import="board.BoardDAO"%>
+<%@page import="utils.CookieManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
+<%
+String idx = request.getParameter("idx");
+
+BoardDAO dao = new BoardDAO();
+//출력할 게시물 인출
+BoardDTO dto = dao.selectView(idx);
+
+String visitCk = CookieManager.readCookie(request, "visitCk"+dto.getIdx());
+if(visitCk.equals("")) {
+	dao.updateVisitCount(idx);
+	CookieManager.makeCookie(response, "visitCk"+dto.getIdx(), dto.getIdx(), 86400);
+}
+else {
+	if(!(visitCk.equals(dto.getIdx()))) {
+		dao.updateVisitCount(idx);
+		CookieManager.makeCookie(response, "visitCk"+dto.getIdx(), dto.getIdx(), 86400);	
+	}
+}
+%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(function() {
+    $('#ajaxBtn').click(function() {
+        var postId = '${dto.idx}'; // JSP 변수에서 게시물 ID를 가져옵니다
+        
+        $.ajax({
+            type: 'POST',
+            url: '../vsCode/like.do',
+            data: { idx: postId },
+            success: function(response) {
+                if (response) {
+                    // 성공적으로 좋아요 수 증가
+                    var currentLikeCount = parseInt($('#ajaxDisplay').text());
+                    $('#ajaxDisplay').text(currentLikeCount + 1);
+                } else {
+                    // 실패 처리 (예: 알림)
+                    alert('좋아요 수 증가에 실패했습니다.');
+                }
+            },
+            error: function() {
+                // 요청 실패 처리 (예: 알림)
+                alert('서버와의 연결에 문제가 발생했습니다.');
+            }
+        });
+    });
+});
+</script>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -128,22 +178,22 @@
                </ul>
              </li>
              <li>
-               <a class="active" href="board-list.do">명랑소식</a>
-               <ul class="depth2">
-                 <li>
-                   <a class="active" href="board-list.do">언론보도</a>
-                 </li>
-                 <li>
-                   <a href="#">홍보동영상</a>
-                 </li>
-                 <li>
-                   <a href="qna-list.jsp">고객문의</a>
-                 </li>
-                 <li>
+              <a href="board-list.do">명랑소식</a>
+              <ul class="depth2">
+                <li>
+                  <a href="../vsCode/board-list.do">언론보도</a>
+                </li>
+                <li>
+                  <a href="#">홍보동영상</a>
+                </li>
+                <li>
+                  <a href="../vsCode/qna-list.do">고객문의</a>
+                </li>
+                <li>
                   <a href="download.jsp">자료실</a>
                  </li>
-               </ul>
-             </li>
+              </ul>
+            </li>
            </ul>
            <span class="bar"></span>
          </nav>
@@ -340,6 +390,10 @@
             <div class="txt_wrap">
               ${ dto.content }
               </div>
+	        <div class="like_wrap">
+	        <div id="ajaxDisplay" class="likeCount">${ dto.likeboard }</div>
+	        <button id="ajaxBtn" type="button"><img src="./images/common/like.png" alt="좋아요"></button>        
+	        </div>
           </div>
         </div>
         <div class="board_list_btn">

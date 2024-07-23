@@ -1,3 +1,4 @@
+<%@page import="utils.CookieManager"%>
 <%@page import="member.MemberDTO"%>
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,6 +22,17 @@ if (memberDTO.getId() !=null) {
     session.setAttribute("UserName", memberDTO.getName());
     session.setAttribute("UserEmail", memberDTO.getEmail());
     session.setAttribute("UserTel", memberDTO.getTel());
+    
+    String save_check = request.getParameter("save_check");
+
+    if(save_check != null && save_check.equals("Y")) {
+    	// 하루(60*60*24)짜리 쿠키를 생성한다.
+    	CookieManager.makeCookie(response, "loginId", userId, 86400);
+    }
+    else {
+    	// 로그인에 성공했지만, 체크를 해제한 상태라면 쿠키를 삭제한다.
+    	CookieManager.deleteCookie(response, "loginId");
+    }
     /*
     세선영역에 저장된 속성값은 페이지를 이동하더라도 유지되므로 로그인
     페이지로 이동한다. 그리고 웹브라우저를 완전히 닫을 때까지 저장된 정보는

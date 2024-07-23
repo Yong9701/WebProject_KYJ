@@ -11,6 +11,7 @@ public class BoardDTO {
 	private String ofile;
 	private String sfile;
 	private int visitcount; // 조회수 int형
+	private int likeboard;
 	
 	// 생성자는 정의하지 않아도 됨.
 	
@@ -63,4 +64,11 @@ public class BoardDTO {
 	public void setVisitcount(int visitcount) {
 		this.visitcount = visitcount;
 	}
+	public int getLikeboard() {
+		return likeboard;
+	}
+	public void setLikeboard(int likeboard) {
+		this.likeboard = likeboard;
+	}
+	
 }
